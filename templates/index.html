@@ -1,0 +1,50 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome</title>
+  {% tailwind_css %}
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+  <div class="bg-white p-10 rounded-2xl shadow-xl text-center space-y-6 max-w-md w-full">
+    <h1 class="text-3xl font-bold text-gray-800">Welcome</h1>
+
+    {% if user.is_authenticated %}
+      <p class="text-gray-600">You are logged in as:</p>
+
+      <div class="text-left mt-4 space-y-2">
+        <p><strong>First name:</strong> {{ user.first_name }}</p>
+        <p><strong>Last name:</strong> {{ user.last_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+
+        {# Display extra fields if you have them #}
+        {% if user.full_name %}
+          <p><strong>Full Name:</strong> {{ user.full_name }}</p>
+        {% endif %}
+        {% if user.phone_number %}
+          <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
+        {% endif %}
+      </div>
+
+      <div class="flex justify-center gap-4 mt-6">
+        <a href="{% url 'logout' %}" class="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+          Logout
+        </a>
+      </div>
+
+    {% else %}
+      <p class="text-gray-600">Please login or register to continue</p>
+
+      <div class="flex justify-center gap-4 mt-6">
+        <a href="{% url 'login' %}" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Login</a>
+        <a href="{% url 'register' %}" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">Register</a>
+      </div>
+    {% endif %}
+  </div>
+
+</body>
+</html>

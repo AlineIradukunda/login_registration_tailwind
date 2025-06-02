@@ -1,0 +1,148 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f2ef;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 32px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .logo img {
+            height: 32px;
+        }
+  .title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .messages p {
+            color: #dc2626;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+        }
+   button {
+            padding: 12px;
+            background-color: 0,0,0,0,0.6;
+            color: white;
+            font-weight: 500;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .forgot {
+            text-align: right;
+            margin-top: 4px;
+        }
+
+        .forgot a {
+            font-size: 13px;
+            color: #57616b;
+            text-decoration: none;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 24px 0;
+        }
+
+        .divider hr {
+            flex: 1;
+            border: none;
+            border-top: 1px solid #e5e7eb;
+        }
+ .divider span {
+            margin: 0 12px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .register {
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .register a {
+            color: #0a66c2;
+            font-weight: 500;
+            text-decoration: none;
+        }
+    </style>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+     {% tailwind_css %}
+</head>
+<body class="bg-green flex items-center justify-center h-screen">
+    <div class="bg-black p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-medium mb-1">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ field.errors }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-Red py-2 px-4 rounded">
+                Login
+            </button>
+        </form>
+        <p class="mt-4 text-sm text-center">Don't have an account? 
+            <a href="{% url 'register' %}" class="text-green-500 hover:underline">Register here</a>.
+        </p>
+    </div>
+</body>
+</html>
